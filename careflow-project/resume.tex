@@ -1,0 +1,158 @@
+%-------------------------
+% Resume in Latex
+% Based on Jake Gutierrez's ATS-friendly template
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.6in}
+\addtolength{\textheight}{1.2in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure generated PDF is machine readable and ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabularx}{0.97\textwidth}{X r}
+      \small#1 & \small #2 \\
+    \end{tabularx}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.2in]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge Priyanshu Singh} \\ \vspace{1pt}
+    \small Indore, Madhya Pradesh $|$ +91 8381964419 $|$
+    \href{mailto:priyanshusinghz1pro@gmail.com}{\underline{priyanshusinghz1pro@gmail.com}} \\ \vspace{1pt}
+    \small
+    \href{https://www.linkedin.com/in/priyanshu-singh-32a4b8335/}{\underline{LinkedIn: linkedin.com/in/priyanshu-singh-32a4b8335}} $|$
+    \href{https://github.com/priyanshuuxx}{\underline{GitHub: github.com/priyanshuuxx}} $|$
+    \href{https://leetcode.com/u/priyanshu4419/}{\underline{LeetCode: leetcode.com/u/priyanshu4419}}
+\end{center}
+
+%-----------SUMMARY-----------
+\section{Summary}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     Information Technology undergraduate focused on full-stack web development, API design, data modeling, real-time features, and core computer science fundamentals. Comfortable building React and Node.js applications with reusable interfaces, protected backend services, and structured database schemas.
+    }}
+ \end{itemize}
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Medi-Caps University}{Indore, Madhya Pradesh}
+      {Bachelor of Technology in Information Technology; CGPA: 7.0/10}{2023 -- 2027}
+  \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\textbf{ClientFlow -- Freelancer Scope \& Invoice Manager} $|$ \emph{React.js, Node.js, Express.js, PostgreSQL, Prisma, JWT}}{}
+          \resumeItemListStart
+            \resumeItem{Built a freelancer management platform to centralize client records, work scopes, milestones, approval status, and invoices.}
+            \resumeItem{Implemented secure signup and login with JWT, protected API routes, and middleware for workspace access control.}
+            \resumeItem{Designed PostgreSQL schemas with Prisma ORM and REST endpoints for clients, scopes, milestones, approvals, and billing records.}
+            \resumeItem{Created responsive dashboard workflows for client CRUD, scope creation, approval tracking, milestone updates, and invoice management.}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\textbf{PrepAI -- AI-Powered Career Readiness Platform} $|$ \emph{React.js, Node.js, Express.js, MongoDB, Mongoose, JWT}}{}
+          \resumeItemListStart
+            \resumeItem{Developed a career readiness platform with aptitude modules, coding challenges, AI interview support, resume storage, and progress tracking.}
+            \resumeItem{Built REST APIs for user login, personalized dashboards, question search, filters, bookmarks, and admin content management.}
+            \resumeItem{Used MongoDB with Mongoose and protected routes to manage users, questions, saved items, interview sessions, and analytics.}
+            \resumeItem{Built responsive React.js screens with Tailwind CSS and Axios for desktop and mobile student workflows.}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\textbf{DevQuiz Arena -- Real-Time DSA \& System Design Quiz Platform} $|$ \emph{React.js, Node.js, Express.js, Socket.IO, MongoDB, JWT, AI API}}{}
+          \resumeItemListStart
+            \resumeItem{Built a multiplayer quiz application for DSA and system design with room codes, synchronized timers, and live leaderboards.}
+            \resumeItem{Implemented Socket.IO events for room creation, joining, question navigation, answer submission, score updates, and leaderboard synchronization.}
+            \resumeItem{Integrated AI explanations, weak topic analysis, and personalized question generation after quiz completion.}
+            \resumeItem{Designed MongoDB collections for users, rooms, question banks, attempts, scores, and performance history.}
+          \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: C++, JavaScript, HTML5, CSS3, SQL} \\
+     \textbf{Frontend}{: React.js, Tailwind CSS, Responsive Design, Axios} \\
+     \textbf{Backend}{: Node.js, Express.js, REST APIs, JWT Authentication} \\
+     \textbf{Databases}{: PostgreSQL, Prisma ORM, MongoDB, Mongoose} \\
+     \textbf{Developer Tools}{: Git, GitHub, npm, Postman, Vercel, Render, VS Code} \\
+     \textbf{Core CS}{: Data Structures and Algorithms, Object-Oriented Programming, DBMS, Operating Systems, Computer Networks}
+    }}
+ \end{itemize}
+
+%-------------------------------------------
+\end{document}
