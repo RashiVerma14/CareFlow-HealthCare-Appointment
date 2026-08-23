@@ -58,38 +58,22 @@ public class AppointmentService {
         appointment.patientId = patientId;
         appointment.doctorId = doctor.id;
         appointment.slotStart = request.slotStart();
-        appointment.slotEnd =
-                request.slotStart()
-                        .plusMinutes(doctor.slotDurationMinutes);
+
+        appointment.slotEnd = request.slotStart()
+                .plusMinutes(doctor.slotDurationMinutes);
 
         appointment.holdExpiresAt =
                 Instant.now().plusSeconds(300);
 
         appointment.symptoms = request.symptoms();
-
-        /*
-         * The appointment is CONFIRMED immediately.
-         *
-         * MongoDB's unique index protects the doctor + slot
-         * combination from being booked twice.
-         */
         appointment.status = AppointmentStatus.CONFIRMED;
 
         try {
 
-            /*
-             * IMPORTANT:
-             * Save the appointment BEFORE calling the LLM.
-             *
-             * This makes MongoDB the source of truth for
-             * concurrent booking attempts.
-             */
+            // MongoDB is the source of truth for concurrent bookings
             Appointment saved = appointments.save(appointment);
 
-            /*
-             * Generate the AI pre-visit summary after
-             * successfully reserving the appointment.
-             */
+            // Generate pre-visit AI summary
             try {
 
                 saved.preVisitSummary =
@@ -104,21 +88,17 @@ public class AppointmentService {
             }
 
             saved.updatedAt = Instant.now();
-
             saved = appointments.save(saved);
 
+            // Calendar + email notifications
             notifyBooking(saved);
 
             return saved;
 
         } catch (DuplicateKeyException error) {
 
-            /*
-             * MongoDB rejected the duplicate doctor + slot.
-             */
             throw new ConflictException(
-                    "This appointment slot is already booked. Please choose another slot."
-            );
+                    "This appointment slot is already booked. Please choose another slot.");
         }
     }
 
