@@ -1,60 +1,133 @@
-# CareFlow
+# 🩺 CareFlow — Healthcare Appointment & Follow-Up Platform
 
-CareFlow is an AI-powered healthcare appointment and follow-up manager built for the assignment in `Healthcare_Appointment_Manager (1) (2).pdf`.
+<p align="center">
+  <strong>A full-stack healthcare appointment and follow-up management platform</strong>
+</p>
 
-## What is included
+<p align="center">
+  Built with React, Spring Boot, Java, and MongoDB
+</p>
 
-- React + Vite + Tailwind frontend with patient, doctor, and admin workflows.
-- Spring Boot backend source tree under `backend/`.
-- MongoDB document model notes, API docs, LLM prompts, Google Calendar setup, and system design write-up under `docs/`.
-- `.env.example` for local and deployed configuration.
+---
 
-## Frontend setup
+## 🌐 Live Deployment
 
-```bash
-npm install
-npm run dev
-```
+### 🚀 Live Application
+👉 **https://intelligent-education-production-a773.up.railway.app**
 
-The current UI runs as a polished local demo and models the full CareFlow workflows: doctor search, slot selection, symptom collection, AI pre-visit summary, doctor notes, prescription, reminders, leave handling, notification retries, and Google Calendar sync status.
+### ⚙️ Backend API
+👉 **https://careflow-healthcare-appointment-production.up.railway.app**
 
-## Backend setup
+### 📚 API / Swagger Documentation
+👉 **https://careflow-healthcare-appointment-production.up.railway.app/api/swagger-ui.html**
 
-Install Java 21 and Maven, then run:
+---
 
-```bash
-cd backend
-mvn spring-boot:run
-```
+## 📌 Overview
 
-The backend is structured as a modular monolith:
+**CareFlow** is a full-stack healthcare appointment and follow-up management platform designed to simplify interactions between patients, doctors, and administrators.
+
+The platform provides a centralized system for managing appointments, doctor availability, patient information, follow-ups, reminders, and healthcare-related workflows.
+
+CareFlow focuses on providing a clean, intuitive, and role-based experience while maintaining a scalable backend architecture.
+
+---
+
+## ✨ Key Features
+
+### 👤 Patient Portal
+
+- Patient registration and login
+- Secure authentication
+- Patient profile management
+- Browse available doctors
+- View doctor information
+- Book appointments
+- View upcoming appointments
+- Track appointment history
+- Manage follow-ups
+- Receive reminders
+- Cancel appointments
+- View healthcare-related information
+
+### 👨‍⚕️ Doctor Portal
+
+- Doctor authentication
+- Doctor profile management
+- View appointments
+- Manage appointment schedules
+- View patient information
+- Manage follow-ups
+- Track upcoming consultations
+- Update appointment status
+
+### 🛡️ Admin Portal
+
+- Secure administrator authentication
+- Manage doctors
+- Manage patients
+- Manage appointments
+- Monitor platform activity
+- Manage healthcare platform data
+
+---
+
+## 🔐 Authentication & Security
+
+CareFlow implements role-based authentication and authorization.
+
+### Supported Roles
+
+- **Patient**
+- **Doctor**
+- **Admin**
+
+The backend uses Spring Security for authentication and authorization, with JWT-based authentication for securing protected APIs.
+
+Sensitive configuration such as database credentials and authentication secrets are stored using environment variables rather than being hardcoded into the source code.
+
+---
+
+## 🏗️ System Architecture
 
 ```text
-com.careflow
-├── auth
-├── user
-├── doctor
-├── appointment
-├── ai
-├── notification
-├── calendar
-├── config
-├── common
-└── exception
-```
+                         ┌──────────────────────┐
+                         │       User           │
+                         │ Patient / Doctor /   │
+                         │       Admin          │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │   React + Vite       │
+                         │    Frontend          │
+                         │      Railway         │
+                         └──────────┬───────────┘
+                                    │
+                              REST API / HTTPS
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │   Spring Boot        │
+                         │      Backend         │
+                         │       Railway        │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │    MongoDB Atlas     │
+                         │      Database        │
+                         └──────────────────────┘
 
-## Assignment docs
 
-- API documentation: `docs/API.md`
-- Database schema: `docs/DB_SCHEMA.md`
-- LLM prompts: `docs/LLM_PROMPTS.md`
-- Google Calendar setup: `docs/GOOGLE_CALENDAR.md`
-- System design write-up: `docs/SYSTEM_DESIGN.md`
+Live Demo
+🚀 Try CareFlow
 
-## Deployment
+Frontend:
+https://intelligent-education-production-a773.up.railway.app
 
-- Frontend: Vercel
-- Backend: Render or Railway
-- Database: MongoDB Atlas
+Backend:
+https://careflow-healthcare-appointment-production.up.railway.app
 
-Configure environment variables from `.env.example` in each deployment target.
+Swagger API Documentation:
+https://careflow-healthcare-appointment-production.up.railway.app/api/swagger-ui.html
