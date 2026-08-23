@@ -7,6 +7,10 @@ import com.careflow.doctor.DoctorRepository;
 import com.careflow.exception.ConflictException;
 import com.careflow.exception.NotFoundException;
 import com.careflow.notification.EmailService;
+import com.careflow.patient.Patient;
+import com.careflow.patient.PatientRepository;
+import com.careflow.user.AppUser;
+import com.careflow.user.UserRepository;
 
 import java.time.Instant;
 import java.util.List;
@@ -20,6 +24,8 @@ public class AppointmentService {
 
     private final AppointmentRepository appointments;
     private final DoctorRepository doctors;
+    private final PatientRepository patients;
+    private final UserRepository users;
     private final LLMService llm;
     private final EmailService email;
     private final CalendarService calendar;
@@ -27,12 +33,16 @@ public class AppointmentService {
     public AppointmentService(
             AppointmentRepository appointments,
             DoctorRepository doctors,
+            PatientRepository patients,
+            UserRepository users,
             LLMService llm,
             EmailService email,
             CalendarService calendar) {
 
         this.appointments = appointments;
         this.doctors = doctors;
+        this.patients = patients;
+        this.users = users;
         this.llm = llm;
         this.email = email;
         this.calendar = calendar;
@@ -70,10 +80,8 @@ public class AppointmentService {
 
         try {
 
-            // MongoDB is the source of truth for concurrent bookings
             Appointment saved = appointments.save(appointment);
 
-            // Generate pre-visit AI summary
             try {
 
                 saved.preVisitSummary =
@@ -88,9 +96,9 @@ public class AppointmentService {
             }
 
             saved.updatedAt = Instant.now();
+
             saved = appointments.save(saved);
 
-            // Calendar + email notifications
             notifyBooking(saved);
 
             return saved;
@@ -160,10 +168,12 @@ public class AppointmentService {
 
         calendar.deleteEvents(saved);
 
+        String patientEmail = getPatientEmail(saved.patientId);
+
         email.send(
-                "patient@example.com",
+                patientEmail,
                 "CareFlow appointment cancelled",
-                "Your appointment has been cancelled."
+                "Your CareFlow appointment has been cancelled."
         );
 
         return saved;
@@ -193,17 +203,51 @@ public class AppointmentService {
 
         calendar.createEvents(appointment);
 
+        String patientEmail =
+                getPatientEmail(appointment.patientId);
+
+        String doctorEmail =
+                getDoctorEmail(appointment.doctorId);
+
         email.send(
-                "patient@example.com",
+                patientEmail,
                 "CareFlow booking confirmed",
-                "Your appointment is confirmed."
+                "Your CareFlow appointment has been confirmed."
         );
 
         email.send(
-                "doctor@example.com",
+                doctorEmail,
                 "New CareFlow appointment",
-                "A patient booked an appointment and shared symptoms."
+                "A patient has booked an appointment with you."
         );
+    }
+
+    private String getPatientEmail(String patientId) {
+
+        Patient patient =
+                patients.findById(patientId)
+                        .orElseThrow(() ->
+                                new NotFoundException(
+                                        "Patient not found"));
+
+        AppUser user =
+                users.findById(patient.userId)
+                        .orElseThrow(() ->
+                                new NotFoundException(
+                                        "Patient user account not found"));
+
+        return user.email;
+    }
+
+    private String getDoctorEmail(String doctorId) {
+
+        AppUser doctorUser =
+                users.findByDoctorId(doctorId)
+                        .orElseThrow(() ->
+                                new NotFoundException(
+                                        "Doctor user account not found"));
+
+        return doctorUser.email;
     }
 
     private AiVisitSummary failedSummary(
