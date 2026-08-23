@@ -200,6 +200,8 @@ public class AppointmentService {
 
     private void notifyBooking(
             Appointment appointment) {
+         System.out.println(">>> CAREFLOW: notifyBooking() CALLED for appointment = "
+            + appointment.id);
 
         calendar.createEvents(appointment);
 
